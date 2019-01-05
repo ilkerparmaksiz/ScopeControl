@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     App = QApplication( sys.argv )
     window = Scope()
-    pixmap=QPixmap("/home/ilker/scope/images/splash2.jpg")
+    pixmap=QPixmap("images/splash2.jpg")
     splash = QSplashScreen( pixmap, Qt.WindowStaysOnTopHint )
     splash.setMask( pixmap.mask() )
 

@@ -130,7 +130,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/QCustomPlot-PyQt5" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -366,12 +366,12 @@
       <workItem from="1546448652414" duration="7185000" />
       <workItem from="1546538381735" duration="21126000" />
       <workItem from="1546577592669" duration="327000" />
-      <workItem from="1546637868005" duration="8198000" />
+      <workItem from="1546637868005" duration="8631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160900000" />
+    <option name="totallyTimeSpent" value="161333000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
