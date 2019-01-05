@@ -3,7 +3,7 @@
 it uses following [the API package](https://ds1054z.readthedocs.org/en/stable/api/index.html) and PyQt5. Therefore, You need to install this packages before you can run this program.
 there is also github repository for  [previous package](https://raw.githubusercontent.com/pklaus/ds1054z)
 
-#Following devices may also work but have not tested
+# Following devices may also work but have not tested
 
 * DS1054Z
 * DS1074Z
@@ -15,11 +15,11 @@ there is also github repository for  [previous package](https://raw.githubuserco
 * MSO1074Z-S
 * MSO1104Z-S
 
-#Features
+## Features
 *Save Waveforms in Csv files on trigger 
 *Display waveforms
 
-#Installation
+## Installation
 install following packages 
 	pip3 install ds1054z
 	pip3 install pyqt5 
