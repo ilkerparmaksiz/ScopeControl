@@ -454,11 +454,16 @@ class Functions(QMainWindow,Ui_MainWindow):
             else:
                 count += 1
 
+                if (self.STOP.isChecked()):
+                    n += 1
                 while (count<=n):
                     FileName = "_" + Ch.lower() + "_" + str( count ) + ".csv"
                     FilePath = str( FileDir ) + "/" + str( FileName )
+
                     if(self.FileExist(FilePath)):
                         count+=1
+                        if (self.STOP.isChecked()):
+                            n += 1
                     else:
                         break
 
@@ -474,7 +479,6 @@ class Functions(QMainWindow,Ui_MainWindow):
                 else:
                     data.append( self.scope.get_waveform_samples( Ch, mode ) )
                 data.insert( 0, self.scope.waveform_time_values_decimal )
-
 
                 with self.csv_open( FilePath ) as csv_file:
                     delimiter = ','
