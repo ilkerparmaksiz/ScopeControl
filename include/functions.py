@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+
 from include.con import Ui_Dialog
 from include.guiscope2 import Ui_MainWindow
 
@@ -15,13 +16,24 @@ from include.Waveform import *
 from itertools import zip_longest
 
 import sys
-
+import configparser
 
 class Functions(QMainWindow,Ui_MainWindow):
     def __init__(self,parent=None):
         super(Functions,self).__init__(parent)
         qApp.installEventFilter(self)
         self.setupUi( self )
+        self.config = configparser.ConfigParser()
+        self.stop=False;
+
+
+    def WritetheConfig(self,ip):
+        self.config['Default'] = {"Ip": ip}
+        with open( 'config/config.ini', '+w' ) as configfile:
+            self.config.write( configfile )
+        configfile.close()
+        message=ip + " has been written to config and set as default ip address"
+        self.WriteToStatusBar(message,1000)
 
 
     #Prints to textBrowser
@@ -71,13 +83,26 @@ class Functions(QMainWindow,Ui_MainWindow):
 
 
 
+
     #Opens Connection Dialog
     def Connect(self):
         Dialog=QDialog()
         ui = Ui_Dialog()
         ui.setupUi( Dialog )
+        ui.Ip.setText( str( self.getIp() ) )
         Dialog.show()
         Dialog.exec_()
+
+
+        if(Dialog.result()==1):
+            ip=str(ui.Ip.toPlainText())
+            self.WritetheConfig(ip)
+            self.isConnection()
+        elif(Dialog.result()==0):
+            self.WriteToStatusBar("Ip change is canceled!",1000)
+
+
+
 
     #Get the ip
     def getIp(self):
@@ -85,9 +110,15 @@ class Functions(QMainWindow,Ui_MainWindow):
         get = Ui_Dialog()
         get.setupUi(Dialog)
         ip=str(get.Ip.toPlainText())
+        self.config.read('config/config.ini')
+        if('Default' in self.config):
+            ip=self.config['Default']["Ip"]
+        else:
+            self.WritetheConfig(ip)
 
+        #set the new Ip so you can see
+        get.Ip.setText( str( ip ) )
         #ip address validation
-
         return ip
 
 
@@ -97,6 +128,7 @@ class Functions(QMainWindow,Ui_MainWindow):
         n=self.textEdit.toPlainText()
         STOP=self.STOP
         TD=self.TD
+        self.stop=False
 
         if(TD.isChecked() ):
             if (n.isalnum() and not n.isalpha()):
@@ -108,6 +140,8 @@ class Functions(QMainWindow,Ui_MainWindow):
                     for i in self.ch:
                         if (i.isChecked() and not self.same.isChecked()):
                             self.Save_Waveform( self.ch[i], n)
+                    self.Estop.show()
+                    self.pushButton.hide()
 
                 else: #Checks if file path is provided
                     self.WriteToStatusBar("You Forgot to Choose File Path!!!",5000)
@@ -119,6 +153,8 @@ class Functions(QMainWindow,Ui_MainWindow):
             for i in self.ch:
                 if(i.isChecked() and not self.same.isChecked()):
                     self.Save_Waveform(self.ch[i],n)
+
+
 
 
     def CaptureControl(self):
@@ -142,6 +178,7 @@ class Functions(QMainWindow,Ui_MainWindow):
         self.DC.setDisabled( True )
         self.doubleSpinBox.setDisabled( True )
         self.same.setDisabled( True )
+        self.Estop.hide()
 
         #Create checkButtons
         self.CB_Sources=QButtonGroup()
@@ -196,6 +233,8 @@ class Functions(QMainWindow,Ui_MainWindow):
             if(self.ch[i]!=self.MATH.objectName()):
                 i.toggled.connect( self.TurnOnChannels )
 
+        self.Estop.pressed.connect(self.Stopnow)
+
         # Toolbar button actions
         self.actionExit.triggered.connect( self.Exit )
         self.actionConnection.triggered.connect( self.Connect )
@@ -204,6 +243,7 @@ class Functions(QMainWindow,Ui_MainWindow):
         # Start Saving when button is clicked
         self.pushButton.clicked.connect( self.StartCaptureWaveforms )
         self.RB_Mode.checkedButton().toggled.connect(self.MathButtonControl)
+
         # Hide the ProgressBar
         self.progressBar.hide()
         self.label_4.hide()
@@ -255,6 +295,7 @@ class Functions(QMainWindow,Ui_MainWindow):
     def isConnection(self):
         ip=self.getIp()
 
+
         try:
             self.scope=conn(ip)
             Name=self.scope.idn.split(",")
@@ -262,10 +303,17 @@ class Functions(QMainWindow,Ui_MainWindow):
             if(Name):
                 self.statusbar.showMessage("Success! " + Name + " is Connected", 10000)
 
+
         except OSError as e:
             Warn=QMessageBox.warning(self,"Connection Problem! " + str(e), "  Please Check the Cable and Scope to see if it is frozen. Do You want to try again?",QMessageBox.Yes |QMessageBox.No)
             if(Warn==QMessageBox.Yes):
                 self.isConnection()
+            else:
+                Ques=self.QuestionMessage("Before you go!","Would you like to change your ip adress?")
+                if(Ques):
+                    self.Connect()
+
+
 
 
     def FileExistResponse(self, path):
@@ -373,6 +421,12 @@ class Functions(QMainWindow,Ui_MainWindow):
             self.Apply("source",Ch)
             self.Write( "Trigger source  now is  " + Ch )
 
+    def Stopnow(self):
+        self.pushButton.show()
+        self.Estop.hide()
+        self.Write("You have stopped the process!")
+        self.stop=True
+
 
     def TriggerControlSet(self,Ch):
         slope = self.RB_Slope.checkedButton().objectName()
@@ -427,14 +481,17 @@ class Functions(QMainWindow,Ui_MainWindow):
         if (count == 4):
             self.textBrowser.clear()
 
-
     #WaveForm Capturer
     def Save_Waveform(self,Ch,n):
 
         count = 1;
+        qApp.processEvents()
         FirstResponse = 0
         self.progressBar.setMinimum(-1)
         self.progressBar.setMaximum(n-1)
+
+
+
         mode=self.RB_Mode.checkedButton().objectName()
         FileDir = self.textBrowser_2.toPlainText()
         FileName = "_" + Ch.lower() + "_" + str( count ) + ".csv"
@@ -469,6 +526,9 @@ class Functions(QMainWindow,Ui_MainWindow):
 
 
         while (count <= n):
+
+            if(self.stop):
+                break;
 
             while (self.Querries("trigstatus","")== str(self.RB_Capture.checkedButton().objectName()) and count <= n):  # returns  TD, WAIT, RUN, AUTO, or STOP
                 data = []

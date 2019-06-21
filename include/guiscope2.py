@@ -20,6 +20,10 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(1330, 500, 291, 81))
         self.pushButton.setObjectName("pushButton")
+        self.Estop = QtWidgets.QPushButton(self.centralwidget)
+        self.Estop.setCheckable(True)
+        self.Estop.setGeometry(QtCore.QRect(1330, 500, 291, 81))
+        self.Estop.setObjectName("Estop")
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.layoutWidget.setGeometry(QtCore.QRect(240, 10, 299, 338))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -270,11 +274,13 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.All, self.pushButton)
         MainWindow.setTabOrder(self.pushButton, self.pushButton_3)
         MainWindow.setTabOrder(self.pushButton_3, self.textBrowser_2)
+        MainWindow.setTabOrder(self.textBrowser_2,self.Estop)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Rigol DS1000z Scope WaveForm Saver"))
         self.pushButton.setText(_translate("MainWindow", "Save Waveforms"))
+        self.Estop.setText(_translate("MainWindow", "Stop !"))
         self.label_2.setText(_translate("MainWindow", " Sources"))
         self.CHANnel3.setText(_translate("MainWindow", "Channel 3"))
         self.CHANnel4.setText(_translate("MainWindow", "Channel 4"))
