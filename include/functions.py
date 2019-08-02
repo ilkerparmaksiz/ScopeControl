@@ -6,13 +6,13 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-from include.con import Ui_Dialog
-from include.guiscope2 import Ui_MainWindow
+from con import Ui_Dialog
+from guiscope2 import Ui_MainWindow
 
 from ds1054z import DS1054Z as conn
 import csv, time
 
-from include.Waveform import *
+from Waveform import *
 from itertools import zip_longest
 
 import sys
@@ -136,12 +136,13 @@ class Functions(QMainWindow,Ui_MainWindow):
 
                     n=int(n)
                     self.ShowProgressbar()
+                    self.Estop.show()
+                    self.pushButton.hide()
 
                     for i in self.ch:
                         if (i.isChecked() and not self.same.isChecked()):
                             self.Save_Waveform( self.ch[i], n)
-                    self.Estop.show()
-                    self.pushButton.hide()
+                    
 
                 else: #Checks if file path is provided
                     self.WriteToStatusBar("You Forgot to Choose File Path!!!",5000)
@@ -485,7 +486,7 @@ class Functions(QMainWindow,Ui_MainWindow):
     def Save_Waveform(self,Ch,n):
 
         count = 1;
-        qApp.processEvents()
+        done=True
         FirstResponse = 0
         self.progressBar.setMinimum(-1)
         self.progressBar.setMaximum(n-1)
@@ -526,9 +527,8 @@ class Functions(QMainWindow,Ui_MainWindow):
 
 
         while (count <= n):
-
-            if(self.stop):
-                break;
+           
+            
 
             while (self.Querries("trigstatus","")== str(self.RB_Capture.checkedButton().objectName()) and count <= n):  # returns  TD, WAIT, RUN, AUTO, or STOP
                 data = []
@@ -548,12 +548,24 @@ class Functions(QMainWindow,Ui_MainWindow):
                     for vals in zip_longest( *data ):
                         vals = [vals[0]] + ['{:.2e}'.format( val ) for val in vals[1:]]
                         csv_writer.writerow( vals )
-
-                tx = "------> " + str( count ) + " files are saved for " + Ch.lower()
-
+                
+                if(self.stop):
+                  count=n-1
+                  done=False
+                
+                if (done):
+                  tx = "------> " + str( count ) + " files are saved for " + Ch.lower()
+                else:
+                  tx="Stopped!"
+                 
                 self.statusbar.showMessage(tx,10000)
 
                 self.progressBar.setValue(count)
+                
+
+
+                qApp.processEvents();
                 count += 1
 
         self.WriteSame( "DONE!! \n" )
+       

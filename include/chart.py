@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtChart
-import include.icon_rc
+import icon_rc
 
 class Ui_WaveFormView(object):
     def setupW(self, WaveFormView):

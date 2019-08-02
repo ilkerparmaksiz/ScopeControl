@@ -2,7 +2,7 @@ from PyQt5.QtChart import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from include.chart import  *
+from chart import  *
 
 class waveformViewer(QMainWindow,Ui_WaveFormView):
     def __init__(self,parent=None):
