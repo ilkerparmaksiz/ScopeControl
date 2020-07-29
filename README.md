@@ -36,7 +36,7 @@ Run following in the folder (python version 3.6 and up is strongly suggested)
 	source start.sh  
 	Note: you can adjust your python version to call in start.sh
 	
-## Installation for Rasberry Pi
+## Installation for Rasberry Pi (Special thanks to @carlosperate for working this out. this issue addressed here :https://github.com/mu-editor/mu/issues/441)
 Install Following packages 
 	pip3 install ds1054z
 	sudo apt-get install python3-pyqt5 qtdeclarative5-dev qt5-default pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev qt5-qmake
@@ -76,6 +76,6 @@ Configure it and make sure versions match above
 type bellow anywhere in the terminal 
 	ScopeControl 
 ## Result
-![ScopeControl](https://github.com/ilkerparmaksiz/ScopeControl/images/Scope.jpg)
+![ScopeControl](https://github.com/ilkerparmaksiz/ScopeControl/images/Scope.png)
 
 	
