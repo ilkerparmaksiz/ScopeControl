@@ -1,4 +1,4 @@
-# This program captures and save osiloscope waveform for Ds1054z
+# This program captures and saves oscilloscope waveforms for Rigol Ds1054z Oscilloscope
 
 It uses following [the API package](https://ds1054z.readthedocs.org/en/stable/api/index.html) and PyQt5. Therefore, You need to install this packages before you can run this program.
 There is also github repository for  [previous package](https://raw.githubusercontent.com/pklaus/ds1054z)
@@ -78,5 +78,5 @@ Run following in the folder (python version 3.6 and up is strongly suggested)
 	type bellow anywhere in the terminal 
 	* ScopeControl 
 # ScopeControl
-	<img src="https://github.com/ilkerparmaksiz/ScopeControl/blob/master/images/Scope.png" alt="Scope.png" width=964>
+<img src="https://github.com/ilkerparmaksiz/ScopeControl/blob/master/images/Scope.png" alt="Scope.png" width=964>
 	
