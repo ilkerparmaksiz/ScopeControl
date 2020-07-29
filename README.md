@@ -78,5 +78,5 @@ Configure it and make sure versions match above
 type bellow anywhere in the terminal 
 	ScopeControl 
 ## ScopeControl
-<img src="/ilkerparmaksiz/ScopeControl/blob/master/images/Scope.png?raw=true" alt="Scope.png">
+<img src="master/images/Scope.png?raw=true" alt="Scope.png">
 	
