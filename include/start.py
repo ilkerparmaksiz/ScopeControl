@@ -1,12 +1,13 @@
 
 __author__="ilker Parmaksiz"
 
-import sys,time
+import sys,time,os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from functions import Functions
+
 
 class Scope(Functions):
 
@@ -24,12 +25,16 @@ if __name__ == "__main__":
 
     App = QApplication( sys.argv )
     window = Scope()
-    pixmap=QPixmap("images/splash2.jpg")
+    if (window.Envdir):
+        ImagePath=str(window.Envdir)+"/images/splash2.jpg"
+    else:
+        ImagePath="images/splash2.jpg"
+    pixmap=QPixmap(ImagePath)
     splash = QSplashScreen( pixmap, Qt.WindowStaysOnTopHint )
     splash.setMask( pixmap.mask() )
 
     splashFont=QFont()
-    splashFont.setFamily("Ubuntu" );
+    splashFont.setFamily("Arial" );
     splashFont.setBold( True );
     splashFont.setPointSize(16)
     splash.setFont(splashFont)
@@ -43,7 +48,7 @@ if __name__ == "__main__":
     progressBar.setFormat("Please Wait Loading...")
     progressBar.move((splash.width()-progressBar.width())/2,(splash.height()-progressBar.height())/2)
     progressBar.setMinimum(0)
-    progressBar.setMaximum(19)
+    progressBar.setMaximum(16)
     # adding message
 
     splash.showMessage( 'Welcome to Scope Control ', Qt.AlignHCenter | Qt.AlignTop, Qt.white )

@@ -10,7 +10,7 @@ from con import Ui_Dialog
 from guiscope2 import Ui_MainWindow
 
 from ds1054z import DS1054Z as conn
-import csv, time
+import csv, time,os
 
 from Waveform import *
 from itertools import zip_longest
@@ -25,11 +25,13 @@ class Functions(QMainWindow,Ui_MainWindow):
         self.setupUi( self )
         self.config = configparser.ConfigParser()
         self.stop=False;
+        self.configDir = "None"
+        self.Envdir = os.getenv('ScopeControlDr')
 
 
     def WritetheConfig(self,ip):
         self.config['Default'] = {"Ip": ip}
-        with open( 'config/config.ini', '+w' ) as configfile:
+        with open(self.configDir, '+w' ) as configfile:
             self.config.write( configfile )
         configfile.close()
         message=ip + " has been written to config and set as default ip address"
@@ -110,7 +112,7 @@ class Functions(QMainWindow,Ui_MainWindow):
         get = Ui_Dialog()
         get.setupUi(Dialog)
         ip=str(get.Ip.toPlainText())
-        self.config.read('config/config.ini')
+        self.config.read(self.configDir)
         if('Default' in self.config):
             ip=self.config['Default']["Ip"]
         else:
@@ -173,6 +175,11 @@ class Functions(QMainWindow,Ui_MainWindow):
     #Initially
     def AtStart(self):
         # Initially Disable Some Buttons
+        if (self.Envdir != None):
+            self.configDir = str(self.Envdir) + "/config/config.ini"
+        else:
+            self.configDir = "config/config.ini"
+
         self.POSitive.setDisabled( True )
         self.NEGative.setDisabled( True )
         self.AC.setDisabled( True )
