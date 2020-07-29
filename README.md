@@ -16,8 +16,8 @@ there is also github repository for  [previous package](https://raw.githubuserco
 * MSO1104Z-S
 
 ## Features
-*Save Waveforms in Csv files on trigger 
-*Display waveforms
+* Save Waveforms in Csv files on trigger 
+* Display waveforms
 ## Enviroment Variables
    Open and change env.sh according to destination of the program and then type following
    sudo gedit ~/.bashrc 
@@ -36,7 +36,9 @@ Run following in the folder (python version 3.6 and up is strongly suggested)
 	source start.sh  
 	Note: you can adjust your python version to call in start.sh
 	
-## Installation for Rasberry Pi (Special thanks to @carlosperate for working this out. this issue addressed here :https://github.com/mu-editor/mu/issues/441)
+## Installation for Rasberry Pi 
+#Special thanks to @carlosperate for working this out. this issue addressed here :https://github.com/mu-editor/mu/issues/441
+
 Install Following packages 
 	pip3 install ds1054z
 	sudo apt-get install python3-pyqt5 qtdeclarative5-dev qt5-default pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev qt5-qmake
@@ -72,10 +74,10 @@ Configure it and make sure versions match above
 	python3.7 configure.py --qtchart-version=5.14 --verbose
 	make
 	sudo make install
-# run
+# Run
 type bellow anywhere in the terminal 
 	ScopeControl 
-## Result
-![ScopeControl](https://github.com/ilkerparmaksiz/ScopeControl/images/Scope.png)
+## ScopeControl
+![ScopeControl](https://github.com/ilkerparmaksiz/ScopeControl//tree/master/images/Scope.png)
 
 	
