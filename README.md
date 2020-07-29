@@ -77,6 +77,6 @@ Configure it and make sure versions match above
 # Run
 type bellow anywhere in the terminal 
 	ScopeControl 
-## ScopeControl
+# ScopeControl
 <img src="https://github.com/ilkerparmaksiz/ScopeControl/blob/master/images/Scope.png" alt="Scope.png" width=964>
 	
