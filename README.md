@@ -16,8 +16,8 @@ There is also github repository for  [previous package](https://raw.githubuserco
 	* MSO1104Z-S
 
 ## Features
-	* Save Waveforms in Csv files on trigger 
-	* Display waveforms
+	* Saves waveforms in a csv file on trigger 
+	* Displays waveforms in tool sections 
 ## Enviroment Variables
 	Open and change env.sh according to destination of the program and then type following
 	* sudo gedit ~/.bashrc 
@@ -37,7 +37,7 @@ Run following in the folder (python version 3.6 and up is strongly suggested)
 	* Note: you can adjust your python version to call in start.sh
 	
 ## Installation for Rasberry Pi 
-# Special thanks to @carlosperate for working this out. this issue addressed here :https://github.com/mu-editor/mu/issues/441
+#Special thanks to @carlosperate for working this out. this issue addressed here :https://github.com/mu-editor/mu/issues/441
 
 	Install Following packages 
 	* pip3 install ds1054z
