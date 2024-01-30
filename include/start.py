@@ -44,9 +44,9 @@ if __name__ == "__main__":
     # adding progress bar
     progressBar = QProgressBar( splash )
     progressBar.setAlignment(Qt.AlignCenter)
-    progressBar.setGeometry(0,0,splash.width()/2,24)
+    progressBar.setGeometry(0,0,int(splash.width()/2),24)
     progressBar.setFormat("Please Wait Loading...")
-    progressBar.move((splash.width()-progressBar.width())/2,(splash.height()-progressBar.height())/2)
+    progressBar.move(int((splash.width()-progressBar.width())/2), int((splash.height()-progressBar.height())/2))
     progressBar.setMinimum(0)
     progressBar.setMaximum(16)
     # adding message
